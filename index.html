@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Instagram Demo</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background: #fafafa;
+            margin: 0;
+        }
+
+        header {
+            background: white;
+            border-bottom: 1px solid #ddd;
+            padding: 20px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 500px;
+            margin: 30px auto;
+        }
+
+        .create-post {
+            background: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            margin-bottom: 30px;
+        }
+
+        input,
+        textarea {
+            width: 95%;
+            padding: 10px;
+            margin: 7px 0;
+        }
+
+        button {
+            background: #0095f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .post {
+            background: white;
+            border: 1px solid #ddd;
+            margin-bottom: 25px;
+        }
+
+        .username {
+            font-weight: bold;
+            padding: 15px;
+        }
+
+        .post img {
+            width: 100%;
+            display: block;
+        }
+
+        .caption {
+            padding: 15px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <header>
+        📸 Instagram
+    </header>
+
+
+    <div class="container">
+
+
+        <!-- Create Post -->
+
+        <div class="create-post">
+
+            <h2>Create Post</h2>
+
+            <form action="/post" method="POST">
+
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    required
+                >
+
+                <input
+                    type="url"
+                    name="image_url"
+                    placeholder="Image URL"
+                    required
+                >
+
+                <textarea
+                    name="caption"
+                    placeholder="Write a caption..."
+                ></textarea>
+
+                <button type="submit">
+                    Post
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- Instagram Feed -->
+
+        {% for post in posts %}
+
+        <div class="post">
+
+            <div class="username">
+                👤 {{ post.username }}
+            </div>
+
+            <img
+                src="{{ post.image_url }}"
+                alt="Instagram post"
+            >
+
+            <div class="caption">
+
+                <b>{{ post.username }}</b>
+
+                {{ post.caption }}
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+
+    </div>
+
+</body>
+
+</html>

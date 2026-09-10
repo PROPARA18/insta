@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DM — @{{ receiver.username }}</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            min-height: 100vh;
+
+            background:
+                radial-gradient(circle at 10% 10%, #ffd6e7, transparent 30%),
+                radial-gradient(circle at 90% 90%, #dcd7ff, transparent 35%),
+                #f7f7f7;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chat-container {
+            width: 520px;
+            height: 720px;
+            max-width: 95vw;
+            max-height: 92vh;
+
+            background: rgba(255, 255, 255, 0.96);
+
+            border: 1px solid #e4e4e4;
+            border-radius: 25px;
+
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.15);
+
+            display: flex;
+            flex-direction: column;
+
+            overflow: hidden;
+        }
+
+
+        /* HEADER */
+
+        .header {
+            height: 80px;
+
+            display: flex;
+            align-items: center;
+
+            padding: 15px 20px;
+
+            border-bottom: 1px solid #eee;
+
+            background: rgba(255, 255, 255, 0.95);
+
+            backdrop-filter: blur(15px);
+        }
+
+        .back {
+            font-size: 25px;
+            text-decoration: none;
+            color: #222;
+            margin-right: 15px;
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #833ab4,
+                    #e1306c,
+                    #f77737
+                );
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            color: white;
+            font-size: 22px;
+
+            margin-right: 12px;
+
+            box-shadow:
+                0 5px 15px rgba(225, 48, 108, 0.25);
+        }
+
+        .user-info h2 {
+            font-size: 16px;
+        }
+
+        .user-info p {
+            font-size: 12px;
+            color: #888;
+            margin-top: 3px;
+        }
+
+        .online {
+            color: #22c55e;
+            font-weight: 600;
+        }
+
+
+        /* MESSAGES */
+
+        .messages {
+            flex: 1;
+
+            padding: 25px 20px;
+
+            overflow-y: auto;
+
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .empty {
+            margin: auto;
+
+            text-align: center;
+            color: #aaa;
+        }
+
+        .empty-icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .empty p {
+            font-size: 14px;
+        }
+
+
+        .message {
+            max-width: 72%;
+
+            padding: 12px 16px;
+
+            border-radius: 20px;
+
+            font-size: 14px;
+
+            line-height: 1.4;
+
+            word-wrap: break-word;
+
+            animation: appear 0.2s ease;
+        }
+
+        @keyframes appear {
+
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+
+        .mine {
+            align-self: flex-end;
+
+            color: white;
+
+            border-bottom-right-radius: 5px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #833ab4,
+                    #e1306c
+                );
+
+            box-shadow:
+                0 5px 12px rgba(225, 48, 108, 0.15);
+        }
+
+
+        .theirs {
+            align-self: flex-start;
+
+            background: #f0f0f0;
+
+            color: #222;
+
+            border-bottom-left-radius: 5px;
+        }
+
+
+        /* MESSAGE INPUT */
+
+        .message-form {
+            padding: 15px 18px;
+
+            border-top: 1px solid #eee;
+
+            background: white;
+
+            display: flex;
+            gap: 10px;
+        }
+
+        .message-input {
+            flex: 1;
+
+            border: 1px solid #ddd;
+
+            background: #f8f8f8;
+
+            border-radius: 25px;
+
+            padding: 13px 18px;
+
+            outline: none;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+        }
+
+        .message-input:focus {
+            background: white;
+
+            border-color: #d62976;
+
+            box-shadow:
+                0 0 0 4px rgba(214, 41, 118, 0.08);
+        }
+
+        .send {
+            width: 48px;
+            height: 48px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #833ab4,
+                    #e1306c,
+                    #f77737
+                );
+
+            color: white;
+
+            font-size: 19px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .send:hover {
+            transform: scale(1.08);
+
+            box-shadow:
+                0 8px 20px rgba(225, 48, 108, 0.3);
+        }
+
+
+        /* SCROLLBAR */
+
+        .messages::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .messages::-webkit-scrollbar-thumb {
+            background: #ddd;
+            border-radius: 10px;
+        }
+
+
+        @media (max-width: 600px) {
+
+            body {
+                align-items: stretch;
+            }
+
+            .chat-container {
+                width: 100%;
+                max-width: 100%;
+                height: 100vh;
+                max-height: 100vh;
+                border-radius: 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="chat-container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <a
+            href="/profile"
+            class="back"
+        >
+            ‹
+        </a>
+
+
+        <div class="avatar">
+            👤
+        </div>
+
+
+        <div class="user-info">
+
+            <h2>
+                @{{ receiver.username }}
+            </h2>
+
+            <p>
+                <span class="online">●</span>
+                Active now
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- MESSAGES -->
+
+    <div class="messages" id="messages">
+
+
+        {% if messages %}
+
+            {% for msg in messages %}
+
+                <div
+                    class="message
+                    {% if msg.sender_id == current_user %}
+                        mine
+                    {% else %}
+                        theirs
+                    {% endif %}"
+                >
+
+                    {{ msg.message }}
+
+                </div>
+
+            {% endfor %}
+
+
+        {% else %}
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    💬
+                </div>
+
+                <p>
+                    Start a conversation with
+                    <strong>@{{ receiver.username }}</strong>
+                </p>
+
+            </div>
+
+        {% endif %}
+
+
+    </div>
+
+
+
+    <!-- SEND MESSAGE -->
+
+    <form
+        class="message-form"
+        action="/send/{{ receiver.id }}"
+        method="POST"
+    >
+
+        <input
+            class="message-input"
+            type="text"
+            name="message"
+            placeholder="Message..."
+            autocomplete="off"
+            required
+        >
+
+        <button
+            class="send"
+            type="submit"
+            title="Send message"
+        >
+            ➤
+        </button>
+
+    </form>
+
+
+</div>
+
+
+<script>
+
+    // Automatically scroll to latest message
+    const messages = document.getElementById("messages");
+
+    messages.scrollTop = messages.scrollHeight;
+
+</script>
+
+
+</body>
+
+</html>

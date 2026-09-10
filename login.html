@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Instagram — Login</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background:
+                radial-gradient(circle at 20% 20%, #feda75 0%, transparent 25%),
+                radial-gradient(circle at 80% 20%, #d62976 0%, transparent 30%),
+                radial-gradient(circle at 50% 90%, #4f5bd5 0%, transparent 35%),
+                #fafafa;
+        }
+
+        .container {
+            width: 380px;
+            padding: 15px;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #ddd;
+            border-radius: 24px;
+            padding: 40px 35px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(15px);
+        }
+
+        .logo {
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 18px;
+            border-radius: 22px;
+
+            background:
+                radial-gradient(circle at 30% 110%,
+                #ffdc80 0%,
+                #fcaf45 20%,
+                #f77737 40%,
+                #e1306c 60%,
+                #c13584 75%,
+                #833ab4 100%);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            box-shadow: 0 12px 25px rgba(193, 53, 132, 0.3);
+        }
+
+        .camera {
+            width: 42px;
+            height: 42px;
+            border: 4px solid white;
+            border-radius: 13px;
+            position: relative;
+        }
+
+        .camera::before {
+            content: "";
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border: 4px solid white;
+            border-radius: 50%;
+            top: 8px;
+            left: 9px;
+        }
+
+        .camera::after {
+            content: "";
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            top: 5px;
+            right: 5px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px 16px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            outline: none;
+            font-size: 14px;
+            background: #fafafa;
+            transition: 0.25s;
+        }
+
+        input:focus {
+            border-color: #d62976;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(214, 41, 118, 0.08);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #833ab4,
+                    #e1306c,
+                    #f77737
+                );
+
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+
+            margin-top: 8px;
+
+            box-shadow: 0 10px 20px rgba(225, 48, 108, 0.25);
+
+            transition: 0.25s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px rgba(225, 48, 108, 0.35);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 25px 0;
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            height: 1px;
+            background: #ddd;
+            flex: 1;
+        }
+
+        .demo {
+            background: #f7f7f7;
+            border-radius: 14px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .demo-title {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .accounts {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .account {
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        .account strong {
+            display: block;
+            color: #333;
+        }
+
+        .account span {
+            color: #999;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 22px;
+            color: #999;
+            font-size: 11px;
+        }
+
+        @media (max-width: 450px) {
+            .container {
+                width: 100%;
+            }
+
+            .login-card {
+                padding: 35px 25px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <div class="login-card">
+
+        <div class="logo">
+            <div class="camera"></div>
+        </div>
+
+        <h1>Instagram</h1>
+
+        <p class="subtitle">
+            Share moments. Connect with people.
+        </p>
+
+
+        <form method="POST">
+
+            <div class="input-group">
+
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    autocomplete="username"
+                    required
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+
+            <button type="submit">
+                Log In
+            </button>
+
+        </form>
+
+
+        <div class="divider">
+            OR
+        </div>
+
+
+        <div class="demo">
+
+            <div class="demo-title">
+                DEMO ACCOUNTS
+            </div>
+
+            <div class="accounts">
+
+                <div class="account">
+                    <strong>👤 parth</strong>
+                    <span>••••</span>
+                </div>
+
+                <div class="account">
+                    <strong>👤 rahul</strong>
+                    <span>••••</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer">
+            Flask × Supabase Demo 🚀
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

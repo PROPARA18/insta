@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>{{ user.username }} - Profile</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background: #fafafa;
+            text-align: center;
+        }
+
+        .profile {
+            background: white;
+            width: 400px;
+            margin: 100px auto;
+            padding: 30px;
+            border: 1px solid #ddd;
+        }
+
+        .avatar {
+            font-size: 80px;
+        }
+
+        a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            text-decoration: none;
+            background: #0095f6;
+            color: white;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="profile">
+
+    <div class="avatar">
+        👤
+    </div>
+
+    <h1>@{{ user.username }}</h1>
+
+    <p>{{ user.bio }}</p>
+
+    <hr>
+
+    <h3>Send a message</h3>
+
+    {% if user.id == 1 %}
+
+        <a href="/dm/2">
+            💬 Message Rahul
+        </a>
+
+    {% else %}
+
+        <a href="/dm/1">
+            💬 Message Parth
+        </a>
+
+    {% endif %}
+
+    <br>
+
+    <a href="/logout">
+        Logout
+    </a>
+
+</div>
+
+</body>
+
+</html>
